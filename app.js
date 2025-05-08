@@ -17,9 +17,10 @@ function carregarLocal(key, fallback = []) {
 }
 
 // =====================
-// Carregamento de Alimentos
+// Carregamento de Alimentos e Refeições
 // =====================
 let alimentos = [];
+let refeicoes = [];
 
 async function carregarAlimentos() {
   // Tenta carregar do localStorage, senão do JSON inicial
@@ -28,6 +29,16 @@ async function carregarAlimentos() {
     const resp = await fetch("data/alimentos.json");
     alimentos = await resp.json();
     salvarLocal(STORAGE_KEYS.ALIMENTOS, alimentos);
+  }
+}
+
+async function carregarRefeicoes() {
+  // Tenta carregar do localStorage, senão do JSON inicial
+  refeicoes = carregarLocal(STORAGE_KEYS.REFEICOES);
+  if (refeicoes.length === 0) {
+    const resp = await fetch("data/refeicoes.json");
+    refeicoes = await resp.json();
+    salvarLocal(STORAGE_KEYS.REFEICOES, refeicoes);
   }
 }
 
@@ -60,12 +71,32 @@ function setupTabs() {
 async function init() {
   setupTabs();
   await carregarAlimentos();
+  await carregarRefeicoes();
   // Renderização inicial das abas
   renderRefeicoes();
   renderDietas();
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+/**
+ * Exporta um array de dados para um arquivo JSON para download.
+ * @param {string} nomeArquivo
+ * @param {any} dados
+ */
+function exportarParaJSON(nomeArquivo, dados) {
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = nomeArquivo;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
+}
 
 // =====================
 // Renderização de Refeições (esqueleto)
@@ -91,7 +122,15 @@ function renderRefeicoes() {
       </div>
     </form>
     <details style="margin:1.2rem 0 1.5rem 0;">
-      <summary style="cursor:pointer;font-weight:bold;">Adicionar novo alimento à base</summary>
+      <summary style="cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:0.5rem;">
+        <span style="display:inline-flex;align-items:center;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right:0.4rem;" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="11" fill="#43a047" stroke="#2e7031" stroke-width="2"/>
+      <path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+        </span>
+        Adicionar novo alimento à base
+      </summary>
       <form id="form-novo-alimento" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.7rem;align-items:end;">
         <input id="novo-nome" placeholder="Nome" required style="flex:2;min-width:120px;" maxlength="40"/>
         <input id="novo-calorias" type="number" placeholder="kcal/100g" min="0" required style="width:90px;"/>
@@ -195,17 +234,42 @@ function renderRefeicoes() {
       alert("Já existe uma refeição com esse nome.");
       return;
     }
-    refeicoes.push({ nome, itens: itensRefeicao });
+    // Calcular totais prontos
+    let total = { peso: 0, calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
+    itensRefeicao.forEach(item => {
+      const a = alimentos.find(al => al.nome === item.nome);
+      if (!a) return;
+      const mult = item.qtd / 100;
+      total.peso += item.qtd;
+      total.calorias += a.calorias * mult;
+      total.carboidratos += a.carboidratos * mult;
+      total.gorduras += a.gorduras * mult;
+      total.proteinas += a.proteinas * mult;
+    });
+    // Arredondar valores
+    total.calorias = Math.round(total.calorias * 10) / 10;
+    total.carboidratos = Math.round(total.carboidratos * 100) / 100;
+    total.gorduras = Math.round(total.gorduras * 100) / 100;
+    total.proteinas = Math.round(total.proteinas * 100) / 100;
+
+    refeicoes.push({
+      nome,
+      alimentos: itensRefeicao.map(i => ({ nome: i.nome, quantidade: i.qtd })),
+      totais: total
+    });
     salvarLocal(STORAGE_KEYS.REFEICOES, refeicoes);
     itensRefeicao = [];
     renderItens();
     renderListaRefeicoes();
+
     document.getElementById("nome-refeicao-input").value = "";
     // Atualiza a aba Dietas para refletir novas refeições
     renderDietas();
   };
 
   // Listar refeições salvas
+  // ATENÇÃO: Os totais exibidos abaixo vêm do campo 'totais' salvo em cada refeição,
+  // nunca devem ser recalculados a partir dos itens/alimentos!
   function renderListaRefeicoes() {
     const ul = document.getElementById("lista-refeicoes");
     let refeicoes = carregarLocal(STORAGE_KEYS.REFEICOES);
@@ -214,30 +278,54 @@ function renderRefeicoes() {
       return;
     }
     ul.innerHTML = refeicoes.map((r, idx) => {
-      // Calcular totais
-      let total = { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
-      r.itens.forEach(item => {
-        const a = alimentos.find(al => al.nome === item.nome);
-        if (!a) return;
-        const mult = item.qtd / 100;
-        total.calorias += a.calorias * mult;
-        total.carboidratos += a.carboidratos * mult;
-        total.gorduras += a.gorduras * mult;
-        total.proteinas += a.proteinas * mult;
-      });
+      // Sinalizar se algum alimento não existe mais
+      const algumInvalido = r.alimentos.some(item => !alimentos.find(a => a.nome === item.nome));
+      const t = r.totais || { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
+      // Gera HTML dos ingredientes
+      const ingredientesHtml = r.alimentos && r.alimentos.length
+        ? `<ul style="margin:0.5rem 0 0.5rem 1.2rem;padding:0;font-size:0.97em;">
+            ${r.alimentos.map(item => {
+              const a = alimentos.find(al => al.nome === item.nome);
+              const nome = a ? a.nome : `<span style="color:var(--danger);">${item.nome} (removido)</span>`;
+              return `<li>${nome} — <b>${item.quantidade}g</b></li>`;
+            }).join("")}
+          </ul>`
+        : `<span style="color:var(--text-muted);font-size:0.97em;">Sem ingredientes salvos.</span>`;
       return `
-        <li class="list-item">
-          <b>${r.nome}</b>
+        <li class="list-item" style="${algumInvalido ? 'text-decoration:line-through;color:var(--danger);' : ''}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;cursor:pointer;" class="refeicao-header" data-idx="${idx}">
+            <b>${r.nome}</b>
+            <span style="font-size:1.2em;user-select:none;" class="toggle-ingredientes" data-idx="${idx}">▼</span>
+          </div>
           <div style="font-size:0.97em;">
-            ${Math.round(total.calorias)} kcal, 
-            ${Math.round(total.carboidratos * 10) / 10}g carb, 
-            ${Math.round(total.gorduras * 10) / 10}g gord, 
-            ${Math.round(total.proteinas * 10) / 10}g prot
+            ${Math.round(t.calorias)} kcal, 
+            ${Math.round(t.carboidratos * 10) / 10}g carb, 
+            ${Math.round(t.gorduras * 10) / 10}g gord, 
+            ${Math.round(t.proteinas * 10) / 10}g prot
+          </div>
+          <div class="ingredientes-refeicao" id="ingredientes-refeicao-${idx}" style="display:none;">
+            <div style="margin-top:0.3rem;"><b>Ingredientes:</b></div>
+            ${ingredientesHtml}
           </div>
           <button data-idx="${idx}" class="btn-remove-refeicao" style="background:var(--danger);color:#fff;padding:0.2rem 0.7rem;font-size:0.9rem;margin-top:0.5rem;">Remover</button>
         </li>
       `;
     }).join("");
+    // Toggle ingredientes (expandir/recolher)
+    ul.querySelectorAll(".refeicao-header, .toggle-ingredientes").forEach(el => {
+      el.onclick = () => {
+        const idx = el.getAttribute("data-idx");
+        const div = document.getElementById(`ingredientes-refeicao-${idx}`);
+        if (div) {
+          const aberto = div.style.display !== "none";
+          div.style.display = aberto ? "none" : "";
+          // Alterna seta
+          const seta = ul.querySelector(`.toggle-ingredientes[data-idx="${idx}"]`);
+          if (seta) seta.textContent = aberto ? "▼" : "▲";
+        }
+      };
+    });
+
     // Remover refeição
     ul.querySelectorAll(".btn-remove-refeicao").forEach(btn => {
       btn.onclick = () => {
@@ -252,7 +340,7 @@ function renderRefeicoes() {
         let dietas = carregarLocal(STORAGE_KEYS.DIETAS);
         let alterou = false;
         dietas.forEach(dieta => {
-          Object.keys(dieta.dias).forEach(dia => {
+          Object.keys(dieta.dias || {}).forEach(dia => {
             const origLen = dieta.dias[dia].length;
             dieta.dias[dia] = dieta.dias[dia].filter(nome => nome !== nomeRemovido);
             if (dieta.dias[dia].length !== origLen) alterou = true;
@@ -294,6 +382,14 @@ function renderRefeicoes() {
     document.getElementById("form-novo-alimento").reset();
     alert("Alimento adicionado com sucesso!");
   };
+}
+
+/**
+ * Exporta um array de dietas para um arquivo JSON para download.
+ */
+function exportarDietasParaJSON() {
+  let dietas = carregarLocal(STORAGE_KEYS.DIETAS);
+  exportarParaJSON("dietas.json", dietas);
 }
 
 // =====================
@@ -344,6 +440,8 @@ function renderDietas() {
   };
 
   // Listar dietas salvas
+  // ATENÇÃO: Os totais das dietas são a soma dos campos 'totais' das refeições referenciadas,
+  // nunca recalculados a partir dos itens das refeições!
   function renderListaDietas() {
     const ul = document.getElementById("lista-dietas");
     let dietas = carregarLocal(STORAGE_KEYS.DIETAS);
@@ -359,17 +457,14 @@ function renderDietas() {
         let total = { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
         let refeicoesHtml = d.refeicoes.map(nomeRef => {
           const r = refeicoes.find(rf => rf.nome === nomeRef);
-          if (!r) return `<span style="color:var(--danger);">[Refeição não encontrada: ${nomeRef}]</span>`;
-          // Soma nutrientes da refeição
-          r.itens.forEach(item => {
-            const a = alimentos.find(al => al.nome === item.nome);
-            if (!a) return;
-            const mult = item.qtd / 100;
-            total.calorias += a.calorias * mult;
-            total.carboidratos += a.carboidratos * mult;
-            total.gorduras += a.gorduras * mult;
-            total.proteinas += a.proteinas * mult;
-          });
+          if (!r) return `<span style="text-decoration:line-through;color:var(--danger);">[Refeição não encontrada: ${nomeRef}]</span>`;
+          // Soma nutrientes da refeição usando os totais prontos
+          if (r.totais) {
+            total.calorias += r.totais.calorias || 0;
+            total.carboidratos += r.totais.carboidratos || 0;
+            total.gorduras += r.totais.gorduras || 0;
+            total.proteinas += r.totais.proteinas || 0;
+          }
           return `<li style="margin-bottom:0.2rem;">${r.nome}</li>`;
         }).join("");
         return `
@@ -403,4 +498,5 @@ function renderDietas() {
   }
 
   renderListaDietas();
+
 }

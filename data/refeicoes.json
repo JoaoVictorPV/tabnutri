@@ -1,0 +1,267 @@
+[
+  {
+    "nome": "Frango desfiado cozido",
+    "alimentos": [
+      {"nome": "Frango (cozido)", "quantidade": 150},
+      {"nome": "Bacon", "quantidade": 30},
+      {"nome": "Alho", "quantidade": 20},
+      {"nome": "Cebola", "quantidade": 40},
+      {"nome": "Tomate", "quantidade": 80},
+      {"nome": "Azeite de oliva", "quantidade": 15},
+      {"nome": "Pimentão", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 385,
+      "calorias": 354.7,
+      "carboidratos": 13.44,
+      "gorduras": 20.23,
+      "proteinas": 54.13
+    }
+  },
+  {
+    "nome": "Guacamole",
+    "alimentos": [
+      {"nome": "Abacate", "quantidade": 200},
+      {"nome": "Tomate", "quantidade": 100},
+      {"nome": "Cebola", "quantidade": 50},
+      {"nome": "Azeite de oliva", "quantidade": 15}
+    ],
+    "totais": {
+      "peso": 365,
+      "calorias": 362.6,
+      "carboidratos": 20.4,
+      "gorduras": 32.05,
+      "proteinas": 3.85
+    }
+  },
+  {
+    "nome": "Sanduíche peito de peru",
+    "alimentos": [
+      {"nome": "Pão integral", "quantidade": 100},
+      {"nome": "Peito de peru defumado", "quantidade": 50},
+      {"nome": "Ricota", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 200,
+      "calorias": 394.5,
+      "carboidratos": 45,
+      "gorduras": 11.25,
+      "proteinas": 25
+    }
+  },
+  {
+    "nome": "Carne moída grelhada",
+    "alimentos": [
+      {"nome": "Carne moída", "quantidade": 150},
+      {"nome": "Alho", "quantidade": 20},
+      {"nome": "Cebola", "quantidade": 50},
+      {"nome": "Azeite de oliva", "quantidade": 10},
+      {"nome": "Tomate", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 280,
+      "calorias": 461.6,
+      "carboidratos": 12.05,
+      "gorduras": 31.25,
+      "proteinas": 32.14
+    }
+  },
+  {
+    "nome": "Aveia overnight",
+    "alimentos": [
+      {"nome": "Aveia em flocos", "quantidade": 150},
+      {"nome": "Leite integral", "quantidade": 100},
+      {"nome": "Optimum GOLD STANDARD 100% WHEY", "quantidade": 60}
+    ],
+    "totais": {
+      "peso": 310,
+      "calorias": 850,
+      "carboidratos": 104.3,
+      "gorduras": 18.15,
+      "proteinas": 69.05
+    }
+  },
+  {
+    "nome": "Macarrão integral à bolonhesa",
+    "alimentos": [
+      {"nome": "Macarrão cozido", "quantidade": 150},
+      {"nome": "Carne moída", "quantidade": 100},
+      {"nome": "Bacon", "quantidade": 30},
+      {"nome": "Cebola", "quantidade": 50},
+      {"nome": "Alho", "quantidade": 20},
+      {"nome": "Molho de tomate", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 400,
+      "calorias": 587.1,
+      "carboidratos": 51.02,
+      "gorduras": 28.39,
+      "proteinas": 53.96
+    }
+  },
+  {
+    "nome": "Peixe grelhado temperado",
+    "alimentos": [
+      {"nome": "Tilapia", "quantidade": 150},
+      {"nome": "Azeite de oliva", "quantidade": 30},
+      {"nome": "Alho", "quantidade": 20},
+      {"nome": "Cebola", "quantidade": 30}
+    ],
+    "totais": {
+      "peso": 230,
+      "calorias": 447.4,
+      "carboidratos": 8.3,
+      "gorduras": 32.68,
+      "proteinas": 31.47
+    }
+  },
+  {
+    "nome": "Sanduíche de ovo",
+    "alimentos": [
+      {"nome": "Pão integral", "quantidade": 150},
+      {"nome": "Ovo cozido", "quantidade": 100},
+      {"nome": "Queijo cottage sem lactose", "quantidade": 80}
+    ],
+    "totais": {
+      "peso": 330,
+      "calorias": 611.4,
+      "carboidratos": 68.32,
+      "gorduras": 19.69,
+      "proteinas": 35.3
+    }
+  },
+  {
+    "nome": "Creme de peito de peru com ricota",
+    "alimentos": [
+      {"nome": "Creme de ricota light", "quantidade": 100},
+      {"nome": "Peito de peru defumado", "quantidade": 80},
+      {"nome": "Alho", "quantidade": 10},
+      {"nome": "Azeite de oliva", "quantidade": 10}
+    ],
+    "totais": {
+      "peso": 200,
+      "calorias": 338.3,
+      "carboidratos": 6.6,
+      "gorduras": 24.05,
+      "proteinas": 24.37
+    }
+  },
+  {
+    "nome": "Lasanha vegetariana fit",
+    "alimentos": [
+      {"nome": "Zucchini", "quantidade": 150},
+      {"nome": "Tomate pelado em lata", "quantidade": 80},
+      {"nome": "Queijo cottage sem lactose", "quantidade": 50},
+      {"nome": "Azeite de oliva", "quantidade": 10},
+      {"nome": "Alho", "quantidade": 20},
+      {"nome": "Cebola", "quantidade": 30},
+      {"nome": "Tomate", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 390,
+      "calorias": 199.7,
+      "carboidratos": 20.96,
+      "gorduras": 12.91,
+      "proteinas": 10.0
+    }
+  },
+  {
+    "nome": "Lasanha bolonhesa fit",
+    "alimentos": [
+      {"nome": "Berinjela", "quantidade": 150},
+      {"nome": "Carne moída", "quantidade": 100},
+      {"nome": "Bacon", "quantidade": 20},
+      {"nome": "Molho de tomate", "quantidade": 80},
+      {"nome": "Azeite de oliva", "quantidade": 10},
+      {"nome": "Alho", "quantidade": 10},
+      {"nome": "Cebola", "quantidade": 20},
+      {"nome": "Tomate", "quantidade": 40}
+    ],
+    "totais": {
+      "peso": 430,
+      "calorias": 373.1,
+      "carboidratos": 20.24,
+      "gorduras": 32.27,
+      "proteinas": 25.43
+    }
+  },
+  {
+    "nome": "Strogonoff de frango",
+    "alimentos": [
+      {"nome": "Frango (cozido)", "quantidade": 150},
+      {"nome": "Azeite de oliva", "quantidade": 10},
+      {"nome": "Cebola", "quantidade": 10},
+      {"nome": "Alho", "quantidade": 10},
+      {"nome": "Molho de tomate", "quantidade": 80},
+      {"nome": "Creme de ricota light", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 310,
+      "calorias": 451.1,
+      "carboidratos": 10.0,
+      "gorduras": 24.62,
+      "proteinas": 51.22
+    }
+  },
+  {
+    "nome": "Tapioca com queijo e peito de peru",
+    "alimentos": [
+      {"nome": "Tapioca", "quantidade": 100},
+      {"nome": "Queijo cottage sem lactose", "quantidade": 50},
+      {"nome": "Peito de peru defumado", "quantidade": 50}
+    ],
+    "totais": {
+      "peso": 200,
+      "calorias": 263.5,
+      "carboidratos": 40.2,
+      "gorduras": 3.475,
+      "proteinas": 16.5
+    }
+  },
+  {
+    "nome": "Smoothie proteico",
+    "alimentos": [
+      {"nome": "Banana", "quantidade": 100},
+      {"nome": "Mamão", "quantidade": 100},
+      {"nome": "Avocado", "quantidade": 100},
+      {"nome": "Optimum GOLD STANDARD 100% WHEY", "quantidade": 60},
+      {"nome": "Iogurte zero", "quantidade": 100}
+    ],
+    "totais": {
+      "peso": 460,
+      "calorias": 563,
+      "carboidratos": 52.7,
+      "gorduras": 19.0,
+      "proteinas": 53.1
+    }
+  },
+  {
+    "nome": "Gelatina diet com iogurte",
+    "alimentos": [
+      {"nome": "Gelatina diet", "quantidade": 250},
+      {"nome": "Iogurte zero", "quantidade": 100}
+    ],
+    "totais": {
+      "peso": 350,
+      "calorias": 45,
+      "carboidratos": 4,
+      "gorduras": 0,
+      "proteinas": 7
+    }
+  },
+  {
+    "nome": "Smoothie avocado whey",
+    "alimentos": [
+      {"nome": "Avocado", "quantidade": 120},
+      {"nome": "Iogurte zero", "quantidade": 100},
+      {"nome": "Optimum GOLD STANDARD 100% WHEY", "quantidade": 60}
+    ],
+    "totais": {
+      "peso": 280,
+      "calorias": 467,
+      "carboidratos": 21.4,
+      "gorduras": 25.84,
+      "proteinas": 52.4
+    }
+  }
+]

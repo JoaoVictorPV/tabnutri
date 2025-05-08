@@ -323,10 +323,10 @@
   },
   {
     "nome": "Optimum GOLD STANDARD 100% WHEY",
-    "calorias": 400,
-    "carboidratos": 12,
-    "gorduras": 7,
-    "proteinas": 75
+    "calorias": 397,
+    "carboidratos": 12.9,
+    "gorduras": 4.8,
+    "proteinas": 77.4
   },
   {
     "nome": "Batata doce cozida",
@@ -355,5 +355,12 @@
     "carboidratos": 0,
     "gorduras": 3.6,
     "proteinas": 31
+  },
+  {
+    "nome": "Pimentão",
+    "calorias": 20,
+    "carboidratos": 4.6,
+    "gorduras": 0.2,
+    "proteinas": 0.9
   }
 ]
