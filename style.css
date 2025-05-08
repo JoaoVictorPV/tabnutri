@@ -1,0 +1,243 @@
+:root {
+  --bg: #181a20;
+  --bg-alt: #23262f;
+  --primary: #00c896;
+  --accent: #2dce89;
+  --text: #f1f1f1;
+  --text-muted: #b0b0b0;
+  --card: #23262f;
+  --border: #31344b;
+  --danger: #ff4d4f;
+  --shadow: 0 2px 8px rgba(0,0,0,0.15);
+  --radius: 14px;
+  --transition: 0.2s;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: var(--bg-alt);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1rem 0.7rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+nav button.active,
+nav button:hover {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 1.2rem auto 0 auto;
+  padding: 0 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+section {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  padding: 1.2rem 0 0.7rem 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+}
+
+input, select, textarea {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  transition: border var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+button, .btn {
+  background: var(--primary);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background var(--transition), color var(--transition);
+  box-shadow: var(--shadow);
+}
+
+button:active, .btn:active {
+  background: var(--accent);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-item {
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  margin-bottom: 0.7rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+}
+.list-item:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  background: #232b38;
+}
+
+/* Feedback visual para ações */
+input:invalid, select:invalid {
+  border-color: var(--danger);
+  animation: shake 0.18s 1;
+}
+@keyframes shake {
+  0% { transform: translateX(0);}
+  30% { transform: translateX(-4px);}
+  60% { transform: translateX(4px);}
+  100% { transform: translateX(0);}
+}
+
+/* Suavidade em botões de ação */
+button, .btn {
+  box-shadow: var(--shadow);
+  transition: background var(--transition), color var(--transition), box-shadow 0.18s, transform 0.18s;
+}
+button:hover, .btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+}
+button:active, .btn:active {
+  background: #1e9e74;
+  color: var(--text);
+  transform: scale(0.98);
+}
+
+/* Ícones simples para botões de remover */
+.btn-remove, .btn-remove-refeicao, .btn-remove-dieta {
+  position: relative;
+  padding-left: 1.7em !important;
+}
+.btn-remove::before, .btn-remove-refeicao::before, .btn-remove-dieta::before {
+  content: "🗑️";
+  position: absolute;
+  left: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1em;
+  opacity: 0.8;
+}
+
+/* Destaque para totais */
+.list-item b, .list-item .total {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Animação de fade para listas */
+.list, .list-item, section, main {
+  animation: fadein 0.4s;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Espaçamento extra para títulos e totais */
+h2, h3 {
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.5px;
+}
+.list-item > div[style*="font-size"] {
+  margin-top: 0.2rem;
+  color: var(--text-muted);
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 600px) {
+  main {
+    max-width: 100vw;
+    padding: 0 0.3rem 2rem 0.3rem;
+  }
+  header h1 {
+    font-size: 1.3rem;
+  }
+  nav button {
+    font-size: 1rem;
+    padding: 0.4rem 0.7rem;
+  }
+  section {
+    padding: 0.7rem 0.5rem;
+  }
+}

@@ -1,0 +1,359 @@
+[
+  {
+    "nome": "Abacate",
+    "calorias": 96,
+    "carboidratos": 6,
+    "gorduras": 8.4,
+    "proteinas": 1.2
+  },
+  {
+    "nome": "Alho",
+    "calorias": 131,
+    "carboidratos": 28,
+    "gorduras": 0.5,
+    "proteinas": 5.7
+  },
+  {
+    "nome": "Arroz branco cozido",
+    "calorias": 128,
+    "carboidratos": 28,
+    "gorduras": 0.3,
+    "proteinas": 2.5
+  },
+  {
+    "nome": "Atum em lata ao natural",
+    "calorias": 116,
+    "carboidratos": 0,
+    "gorduras": 1,
+    "proteinas": 25
+  },
+  {
+    "nome": "Aveia em flocos",
+    "calorias": 366,
+    "carboidratos": 61.6,
+    "gorduras": 7.1,
+    "proteinas": 13.9
+  },
+  {
+    "nome": "Avocado",
+    "calorias": 160,
+    "carboidratos": 8.5,
+    "gorduras": 14.7,
+    "proteinas": 2
+  },
+  {
+    "nome": "Azeite de oliva",
+    "calorias": 884,
+    "carboidratos": 0,
+    "gorduras": 100,
+    "proteinas": 0
+  },
+  {
+    "nome": "Bacon",
+    "calorias": 393,
+    "carboidratos": 1.4,
+    "gorduras": 38.3,
+    "proteinas": 13.9
+  },
+  {
+    "nome": "Banana",
+    "calorias": 89,
+    "carboidratos": 23,
+    "gorduras": 0.3,
+    "proteinas": 1.1
+  },
+  {
+    "nome": "Barra Nutrata Protobar Havanna (70g)",
+    "calorias": 270,
+    "carboidratos": 25,
+    "gorduras": 8,
+    "proteinas": 20
+  },
+  {
+    "nome": "Batata inglesa cozida",
+    "calorias": 52,
+    "carboidratos": 12,
+    "gorduras": 0.1,
+    "proteinas": 1.1
+  },
+  {
+    "nome": "Bolacha de leite maltado",
+    "calorias": 430,
+    "carboidratos": 75,
+    "gorduras": 10,
+    "proteinas": 7
+  },
+  {
+    "nome": "Brócolis cozido",
+    "calorias": 35,
+    "carboidratos": 7,
+    "gorduras": 0.4,
+    "proteinas": 2.4
+  },
+  {
+    "nome": "Berinjela",
+    "calorias": 25,
+    "carboidratos": 6,
+    "gorduras": 0.2,
+    "proteinas": 1
+  },
+  {
+    "nome": "Carne moída",
+    "calorias": 212,
+    "carboidratos": 0,
+    "gorduras": 14,
+    "proteinas": 20
+  },
+  {
+    "nome": "Cebola",
+    "calorias": 40,
+    "carboidratos": 9,
+    "gorduras": 0.1,
+    "proteinas": 1.1
+  },
+  {
+    "nome": "Zucchini",
+    "calorias": 17,
+    "carboidratos": 3.1,
+    "gorduras": 0.3,
+    "proteinas": 1.2
+  },
+  {
+    "nome": "Cerveja",
+    "calorias": 43,
+    "carboidratos": 3.6,
+    "gorduras": 0,
+    "proteinas": 0.5
+  },
+  {
+    "nome": "Creme de ricota light",
+    "calorias": 150,
+    "carboidratos": 3,
+    "gorduras": 12,
+    "proteinas": 7
+  },
+  {
+    "nome": "Feijão preto cozido",
+    "calorias": 76,
+    "carboidratos": 14,
+    "gorduras": 0.5,
+    "proteinas": 4.8
+  },
+  {
+    "nome": "Mamão",
+    "calorias": 39,
+    "carboidratos": 10,
+    "gorduras": 0.1,
+    "proteinas": 0.5
+  },
+  {
+    "nome": "Frango (cozido)",
+    "calorias": 165,
+    "carboidratos": 0,
+    "gorduras": 3.6,
+    "proteinas": 31
+  },
+  {
+    "nome": "Gelatina diet",
+    "calorias": 10,
+    "carboidratos": 0,
+    "gorduras": 0,
+    "proteinas": 2
+  },
+  {
+    "nome": "Granola",
+    "calorias": 421,
+    "carboidratos": 68,
+    "gorduras": 12,
+    "proteinas": 10
+  },
+  {
+    "nome": "Hipercalórico Optimum Nutrition",
+    "calorias": 380,
+    "carboidratos": 50,
+    "gorduras": 4,
+    "proteinas": 30
+  },
+  {
+    "nome": "Iogurte zero",
+    "calorias": 35,
+    "carboidratos": 4,
+    "gorduras": 0,
+    "proteinas": 5
+  },
+  {
+    "nome": "Leite integral",
+    "calorias": 61,
+    "carboidratos": 4.7,
+    "gorduras": 3.3,
+    "proteinas": 3.2
+  },
+  {
+    "nome": "Leite sem lactose",
+    "calorias": 52,
+    "carboidratos": 7.2,
+    "gorduras": 1.5,
+    "proteinas": 3.2
+  },
+  {
+    "nome": "Maçã",
+    "calorias": 52,
+    "carboidratos": 14,
+    "gorduras": 0.2,
+    "proteinas": 0.3
+  },
+  {
+    "nome": "Macarrão cozido",
+    "calorias": 131,
+    "carboidratos": 25,
+    "gorduras": 1.1,
+    "proteinas": 5
+  },
+  {
+    "nome": "Manteiga",
+    "calorias": 717,
+    "carboidratos": 0.1,
+    "gorduras": 81,
+    "proteinas": 0.9
+  },
+  {
+    "nome": "Molho de tomate",
+    "calorias": 29,
+    "carboidratos": 6,
+    "gorduras": 0.2,
+    "proteinas": 1.3
+  },
+  {
+    "nome": "Ovo cozido",
+    "calorias": 155,
+    "carboidratos": 1.1,
+    "gorduras": 11,
+    "proteinas": 13
+  },
+  {
+    "nome": "Pão francês",
+    "calorias": 270,
+    "carboidratos": 57,
+    "gorduras": 1.5,
+    "proteinas": 8
+  },
+  {
+    "nome": "Pão integral",
+    "calorias": 252,
+    "carboidratos": 43,
+    "gorduras": 3.5,
+    "proteinas": 9
+  },
+  {
+    "nome": "Peito de peru defumado",
+    "calorias": 111,
+    "carboidratos": 1,
+    "gorduras": 2.5,
+    "proteinas": 21
+  },
+  {
+    "nome": "Picanha na brasa",
+    "calorias": 330,
+    "carboidratos": 0,
+    "gorduras": 28,
+    "proteinas": 19
+  },
+  {
+    "nome": "Queijo cottage sem lactose",
+    "calorias": 98,
+    "carboidratos": 3.4,
+    "gorduras": 4.3,
+    "proteinas": 11
+  },
+  {
+    "nome": "Queijo mussarela sem lactose",
+    "calorias": 280,
+    "carboidratos": 2,
+    "gorduras": 21,
+    "proteinas": 20
+  },
+  {
+    "nome": "Ricota",
+    "calorias": 174,
+    "carboidratos": 3,
+    "gorduras": 13,
+    "proteinas": 11
+  },
+  {
+    "nome": "Tapioca",
+    "calorias": 159,
+    "carboidratos": 38,
+    "gorduras": 0.2,
+    "proteinas": 0.2
+  },
+  {
+    "nome": "Tomate",
+    "calorias": 18,
+    "carboidratos": 3.9,
+    "gorduras": 0.2,
+    "proteinas": 0.9
+  },
+  {
+    "nome": "Tomate pelado em lata",
+    "calorias": 21,
+    "carboidratos": 4.2,
+    "gorduras": 0.1,
+    "proteinas": 1.1
+  },
+  {
+    "nome": "Torrada Bauducco integral",
+    "calorias": 410,
+    "carboidratos": 77,
+    "gorduras": 8,
+    "proteinas": 10
+  },
+  {
+    "nome": "Tilapia",
+    "calorias": 96,
+    "carboidratos": 0,
+    "gorduras": 1.7,
+    "proteinas": 20
+  },
+  {
+    "nome": "Vinho (tinto seco)",
+    "calorias": 85,
+    "carboidratos": 2.6,
+    "gorduras": 0,
+    "proteinas": 0.1
+  },
+  {
+    "nome": "Optimum GOLD STANDARD 100% WHEY",
+    "calorias": 400,
+    "carboidratos": 12,
+    "gorduras": 7,
+    "proteinas": 75
+  },
+  {
+    "nome": "Batata doce cozida",
+    "calorias": 76,
+    "carboidratos": 18,
+    "gorduras": 0.1,
+    "proteinas": 0.6
+  },
+  {
+    "nome": "Cenoura",
+    "calorias": 41,
+    "carboidratos": 10,
+    "gorduras": 0.2,
+    "proteinas": 0.9
+  },
+  {
+    "nome": "Requeijão light",
+    "calorias": 180,
+    "carboidratos": 4,
+    "gorduras": 15,
+    "proteinas": 7
+  },
+  {
+    "nome": "Peito de frango grelhado",
+    "calorias": 165,
+    "carboidratos": 0,
+    "gorduras": 3.6,
+    "proteinas": 31
+  }
+]
