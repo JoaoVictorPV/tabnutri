@@ -22,7 +22,7 @@ function carregarLocal(key, fallback = []) {
 let alimentos = [];
 let refeicoes = [];
 
-const API_BASE = "https://<URL_BACKEND>/api"; // Substitua pelo endpoint real do Render
+const API_BASE = "https://tabnutri-1.onrender.com/api";
 
 async function carregarAlimentos() {
   try {
@@ -459,15 +459,6 @@ function renderDietas() {
     <h2>Criar Dieta</h2>
     <form id="form-dieta" autocomplete="off" style="margin-bottom:1.2rem;">
       <input id="nome-dieta-input" placeholder="Nome da dieta" maxlength="32" required style="margin-bottom:0.7rem;"/>
-      <div style="margin-bottom:0.7rem;">
-        <label style="display:block;margin-bottom:0.3rem;">Modo de seleção:</label>
-        <label style="margin-right:1.2rem;">
-          <input type="radio" name="modo-dieta" value="refeicoes" checked /> Por refeições
-        </label>
-        <label>
-          <input type="radio" name="modo-dieta" value="alimentos" /> Por alimentos
-        </label>
-      </div>
       <div id="seletores-dieta"></div>
       <button type="submit" class="btn" style="margin-top:1rem;">Salvar Dieta</button>
     </form>
@@ -475,40 +466,19 @@ function renderDietas() {
     <ul id="lista-dietas" class="list"></ul>
   `;
 
-  // Renderiza o seletor de acordo com o modo
-  function renderSeletores(modo) {
+  // Renderiza apenas o seletor de refeições
+  function renderSeletores() {
     const div = document.getElementById("seletores-dieta");
-    if (modo === "refeicoes") {
-      div.innerHTML = `
-        <label for="refeicoes-dieta-select" style="display:block;margin-bottom:0.3rem;">Selecione as refeições para esta dieta:</label>
-        <select id="refeicoes-dieta-select" multiple size="4" style="width:100%;min-width:180px;">
-          ${refeicoesBase.map(r => `<option value="${r.nome}">${r.nome}</option>`).join("")}
-        </select>
-      `;
-    } else {
-      div.innerHTML = `
-        <label style="display:block;margin-bottom:0.3rem;">Selecione os alimentos para esta dieta:</label>
-        <div id="alimentos-checkboxes" style="max-height:180px;overflow-y:auto;border:1px solid #ccc;padding:0.5rem;border-radius:6px;">
-          ${alimentosBase.map((a, idx) => `
-            <label style="display:block;margin-bottom:0.2rem;">
-              <input type="checkbox" name="alimentos-dieta" value="${a.nome}" />
-              ${a.nome} <small style="color:var(--text-muted);font-size:0.95em;">(${a.calorias} kcal/100g)</small>
-            </label>
-          `).join("")}
-        </div>
-      `;
-    }
+    div.innerHTML = `
+      <label for="refeicoes-dieta-select" style="display:block;margin-bottom:0.3rem;">Selecione as refeições para esta dieta:</label>
+      <select id="refeicoes-dieta-select" multiple size="4" style="width:100%;min-width:180px;">
+        ${refeicoesBase.map(r => `<option value="${r.nome}">${r.nome}</option>`).join("")}
+      </select>
+    `;
   }
 
-  // Inicializa com modo refeições
-  renderSeletores("refeicoes");
-
-  // Troca modo ao clicar no radio
-  document.querySelectorAll('input[name="modo-dieta"]').forEach(radio => {
-    radio.onchange = e => {
-      renderSeletores(e.target.value);
-    };
-  });
+  // Inicializa seletor de refeições
+  renderSeletores();
 
   // Salvar dieta
   document.getElementById("form-dieta").onsubmit = e => {
@@ -523,33 +493,18 @@ function renderDietas() {
       alert("Já existe uma dieta com esse nome.");
       return;
     }
-    // Verifica modo
-    const modo = document.querySelector('input[name="modo-dieta"]:checked').value;
-    if (modo === "refeicoes") {
-      // Coletar refeições selecionadas
-      const select = document.getElementById("refeicoes-dieta-select");
-      const refeicoesSelecionadas = Array.from(select.selectedOptions).map(opt => opt.value);
-      if (refeicoesSelecionadas.length === 0) {
-        alert("Selecione pelo menos uma refeição para a dieta.");
-        return;
-      }
-      dietas.push({ nome, tipo: "refeicoes", refeicoes: refeicoesSelecionadas });
-    } else {
-      // Coletar alimentos selecionados
-      const checks = document.querySelectorAll('input[name="alimentos-dieta"]:checked');
-      const alimentosSelecionados = Array.from(checks).map(chk => chk.value);
-      if (alimentosSelecionados.length === 0) {
-        alert("Selecione pelo menos um alimento para a dieta.");
-        return;
-      }
-      dietas.push({ nome, tipo: "alimentos", alimentos: alimentosSelecionados });
+    // Coletar refeições selecionadas
+    const select = document.getElementById("refeicoes-dieta-select");
+    const refeicoesSelecionadas = Array.from(select.selectedOptions).map(opt => opt.value);
+    if (refeicoesSelecionadas.length === 0) {
+      alert("Selecione pelo menos uma refeição para a dieta.");
+      return;
     }
+    dietas.push({ nome, tipo: "refeicoes", refeicoes: refeicoesSelecionadas });
     salvarLocal(STORAGE_KEYS.DIETAS, dietas);
     renderListaDietas();
     document.getElementById("form-dieta").reset();
-    // Volta para modo refeições por padrão
-    renderSeletores("refeicoes");
-    document.querySelector('input[name="modo-dieta"][value="refeicoes"]').checked = true;
+    renderSeletores();
   };
 
   // Listar dietas salvas
@@ -563,71 +518,38 @@ function renderDietas() {
       return;
     }
     ul.innerHTML = dietas
-      .filter(d => typeof d.nome === "string")
+      .filter(d => typeof d.nome === "string" && Array.isArray(d.refeicoes))
       .map((d, idx) => {
-        if (d.tipo === "alimentos" && Array.isArray(d.alimentos)) {
-          // Dieta criada por alimentos
-          let total = { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
-          let alimentosHtml = d.alimentos.map(nomeAlim => {
-            const a = alimentos.find(al => al.nome === nomeAlim);
-            if (!a) return `<span style="text-decoration:line-through;color:var(--danger);">[Alimento não encontrado: ${nomeAlim}]</span>`;
-            total.calorias += a.calorias;
-            total.carboidratos += a.carboidratos;
-            total.gorduras += a.gorduras;
-            total.proteinas += a.proteinas;
-            return `<li style="margin-bottom:0.2rem;">${a.nome} <small style="color:var(--text-muted);font-size:0.95em;">(${a.calorias} kcal/100g)</small></li>`;
-          }).join("");
-          return `
-            <li class="list-item" style="margin-bottom:1.1rem;">
-              <b>${d.nome}</b> <span style="font-size:0.92em;color:var(--text-muted);">(por alimentos)</span>
-              <div>
-                <ul style="margin:0.5rem 0 0.5rem 1.2rem;padding:0;">
-                  ${alimentosHtml}
-                </ul>
-                <div style="font-size:0.97em;">
-                  <b>Total (100g de cada):</b> ${Math.round(total.calorias)} kcal, 
-                  ${Math.round(total.carboidratos * 10) / 10}g carb, 
-                  ${Math.round(total.gorduras * 10) / 10}g gord, 
-                  ${Math.round(total.proteinas * 10) / 10}g prot
-                </div>
+        // Dieta criada por refeições
+        let total = { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
+        let refeicoesHtml = d.refeicoes.map(nomeRef => {
+          const r = refeicoes.find(rf => rf.nome === nomeRef);
+          if (!r) return `<span style="text-decoration:line-through;color:var(--danger);">[Refeição não encontrada: ${nomeRef}]</span>`;
+          if (r.totais) {
+            total.calorias += r.totais.calorias || 0;
+            total.carboidratos += r.totais.carboidratos || 0;
+            total.gorduras += r.totais.gorduras || 0;
+            total.proteinas += r.totais.proteinas || 0;
+          }
+          return `<li style="margin-bottom:0.2rem;">${r.nome}</li>`;
+        }).join("");
+        return `
+          <li class="list-item" style="margin-bottom:1.1rem;">
+            <b>${d.nome}</b> <span style="font-size:0.92em;color:var(--text-muted);">(por refeições)</span>
+            <div>
+              <ul style="margin:0.5rem 0 0.5rem 1.2rem;padding:0;">
+                ${refeicoesHtml}
+              </ul>
+              <div style="font-size:0.97em;">
+                <b>Total:</b> ${Math.round(total.calorias)} kcal, 
+                ${Math.round(total.carboidratos * 10) / 10}g carb, 
+                ${Math.round(total.gorduras * 10) / 10}g gord, 
+                ${Math.round(total.proteinas * 10) / 10}g prot
               </div>
-              <button data-idx="${idx}" class="btn-remove-dieta" style="background:var(--danger);color:#fff;padding:0.2rem 0.7rem;font-size:0.9rem;margin-top:0.5rem;">Remover</button>
-            </li>
-          `;
-        } else if (Array.isArray(d.refeicoes)) {
-          // Dieta criada por refeições (padrão antigo)
-          let total = { calorias: 0, carboidratos: 0, gorduras: 0, proteinas: 0 };
-          let refeicoesHtml = d.refeicoes.map(nomeRef => {
-            const r = refeicoes.find(rf => rf.nome === nomeRef);
-            if (!r) return `<span style="text-decoration:line-through;color:var(--danger);">[Refeição não encontrada: ${nomeRef}]</span>`;
-            if (r.totais) {
-              total.calorias += r.totais.calorias || 0;
-              total.carboidratos += r.totais.carboidratos || 0;
-              total.gorduras += r.totais.gorduras || 0;
-              total.proteinas += r.totais.proteinas || 0;
-            }
-            return `<li style="margin-bottom:0.2rem;">${r.nome}</li>`;
-          }).join("");
-          return `
-            <li class="list-item" style="margin-bottom:1.1rem;">
-              <b>${d.nome}</b> <span style="font-size:0.92em;color:var(--text-muted);">(por refeições)</span>
-              <div>
-                <ul style="margin:0.5rem 0 0.5rem 1.2rem;padding:0;">
-                  ${refeicoesHtml}
-                </ul>
-                <div style="font-size:0.97em;">
-                  <b>Total:</b> ${Math.round(total.calorias)} kcal, 
-                  ${Math.round(total.carboidratos * 10) / 10}g carb, 
-                  ${Math.round(total.gorduras * 10) / 10}g gord, 
-                  ${Math.round(total.proteinas * 10) / 10}g prot
-                </div>
-              </div>
-              <button data-idx="${idx}" class="btn-remove-dieta" style="background:var(--danger);color:#fff;padding:0.2rem 0.7rem;font-size:0.9rem;margin-top:0.5rem;">Remover</button>
-            </li>
-          `;
-        } else {
-          return "";
-        }
+            </div>
+            <button data-idx="${idx}" class="btn-remove-dieta" style="background:var(--danger);color:#fff;padding:0.2rem 0.7rem;font-size:0.9rem;margin-top:0.5rem;">Remover</button>
+          </li>
+        `;
       }).join("");
     // Remover dieta
     ul.querySelectorAll(".btn-remove-dieta").forEach(btn => {
