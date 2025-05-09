@@ -22,7 +22,7 @@ function carregarLocal(key, fallback = []) {
 let alimentos = [];
 let refeicoes = [];
 
-const API_BASE = "https://tabnutri.onrender.com/api";
+const API_BASE = "https://concerned-linnet-joaovictorpv-eab37c62.koyeb.app/api";
 
 async function carregarAlimentos() {
   try {
@@ -370,7 +370,7 @@ function renderRefeicoes() {
         if (!nomeRemovido) return;
 
         // Chamada à API para remover a refeição
-        fetch(`${API_BASE}/refeicoes.json?nome=${encodeURIComponent(nomeRemovido)}`, {
+        fetch(`${API_BASE}/refeicoes/${idx}`, {
           method: "DELETE"
         })
           .then(resp => {
@@ -562,9 +562,23 @@ function renderDietas() {
       btn.onclick = () => {
         let dietas = carregarLocal(STORAGE_KEYS.DIETAS);
         const idx = parseInt(btn.getAttribute("data-idx"));
-        dietas.splice(idx, 1);
-        salvarLocal(STORAGE_KEYS.DIETAS, dietas);
-        renderListaDietas();
+        const nomeRemovido = dietas[idx]?.nome;
+        if (!nomeRemovido) return;
+
+        // Chamada à API para remover a dieta
+        fetch(`${API_BASE}/dietas/${idx}`, {
+          method: "DELETE"
+        })
+          .then(resp => {
+            if (!resp.ok) throw new Error("Erro ao remover dieta no backend");
+            // Após remover no backend, remove localmente e atualiza interface
+            dietas.splice(idx, 1);
+            salvarLocal(STORAGE_KEYS.DIETAS, dietas);
+            renderListaDietas();
+          })
+          .catch(err => {
+            alert("Erro ao remover dieta no backend. Verifique sua conexão.");
+          });
       };
     });
   }
