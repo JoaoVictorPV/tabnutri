@@ -123,16 +123,21 @@ function renderRefeicoes() {
       <div style="display:flex;gap:0.5rem;align-items:end;">
         <div style="flex:2;">
           <label for="alimento-input">Alimento</label>
-          <input id="alimento-input" list="alimentos-list" placeholder="Digite ou selecione..." required />
-          <datalist id="alimentos-list">
-            ${alimentos.map(a => `<option value="${a.nome}">`).join("")}
-          </datalist>
+          <select id="alimento-input" required>
+            <option value="" disabled selected>Selecione...</option>
+            ${alimentos.map(a => `<option value="${a.nome}">${a.nome}</option>`).join("")}
+          </select>
         </div>
         <div style="flex:1;">
           <label for="quantidade-input">Qtd (g)</label>
           <input id="quantidade-input" type="number" min="1" max="2000" value="100" required />
         </div>
-        <button type="submit" class="btn" style="margin:0 0 0 0.5rem;">Adicionar</button>
+        <button type="submit" class="btn-add-refeicao" title="Adicionar alimento à refeição" aria-label="Adicionar alimento">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="display:block;margin:auto;" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="13" fill="#43a047" stroke="#2e7031" stroke-width="2"/>
+            <path d="M14 8v12M8 14h12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
     </form>
     <details style="margin:1.2rem 0 1.5rem 0;">
@@ -221,7 +226,8 @@ function renderRefeicoes() {
   // Adicionar alimento à refeição
   document.getElementById("form-refeicao").onsubmit = e => {
     e.preventDefault();
-    const nome = document.getElementById("alimento-input").value.trim();
+    const select = document.getElementById("alimento-input");
+    const nome = select.value;
     const qtd = parseInt(document.getElementById("quantidade-input").value, 10);
     if (!nome || isNaN(qtd) || qtd <= 0) return;
     const alimento = alimentos.find(a => a.nome === nome);
@@ -231,7 +237,7 @@ function renderRefeicoes() {
     }
     itensRefeicao.push({ nome, qtd });
     renderItens();
-    document.getElementById("alimento-input").value = "";
+    select.selectedIndex = 0;
     document.getElementById("quantidade-input").value = 100;
   };
 

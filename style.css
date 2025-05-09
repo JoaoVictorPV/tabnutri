@@ -38,12 +38,28 @@ header {
   align-items: center;
 }
 
-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
+header h1,
+.main-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 2.2px;
+  margin-bottom: 0.7rem;
   color: var(--primary);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  text-fill-color: unset;
+  text-shadow: 0 2px 12px #00c89633, 0 1px 0 #23262f;
+  font-family: 'Inter', Arial, sans-serif;
+  text-transform: uppercase;
+  padding-bottom: 0.2rem;
+  filter: drop-shadow(0 2px 8px #00c89633);
+  max-width: 95%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0.18em;
 }
 
 nav {
@@ -52,20 +68,49 @@ nav {
 }
 
 nav button {
-  background: none;
+  flex: 1 1 0;
+  min-width: 150px;
+  background: var(--bg-alt);
   border: none;
   color: var(--text-muted);
-  font-size: 1.1rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: var(--radius);
+  font-size: 1.02rem;
+  padding: 0.9rem 2.1rem;
+  border-radius: 14px 14px 0 0;
   cursor: pointer;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), box-shadow 0.18s, border-radius 0.18s;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  border-bottom: 4.5px solid transparent;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.7em;
+  margin-bottom: -2px;
+  z-index: 2;
+  text-align: left;
+  height: 2.1rem;
+}
+
+nav .tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-right: 0.5em;
+  margin-left: 0;
+  min-width: 1.7em;
 }
 
 nav button.active,
 nav button:hover {
   background: var(--primary);
   color: var(--bg);
+  border-bottom: 4.5px solid var(--primary);
+  box-shadow: 0 6px 24px #00c89633;
+  z-index: 3;
 }
 
 main {
@@ -99,6 +144,9 @@ footer {
   letter-spacing: 0.04em;
   line-height: 1.1;
 }
+#footer-custom {
+  font-size: 0.57rem !important;
+}
 
 input, select, textarea {
   background: var(--bg);
@@ -126,14 +174,14 @@ button, .btn {
   color: var(--bg);
   border: none;
   border-radius: 22px;
-  padding: 1.1rem 2.2rem;
-  font-size: 1.35rem;
-  font-weight: 700;
+  padding: 1.35rem 2.4rem;
+  font-size: 1.45rem;
+  font-weight: 800;
   cursor: pointer;
   margin-top: 0.7rem;
   transition: background var(--transition), color var(--transition), box-shadow 0.18s, transform 0.18s;
   box-shadow: 0 4px 18px rgba(0,0,0,0.18);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -151,13 +199,16 @@ button:active, .btn:active {
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .list-item {
   background: var(--bg-alt);
   border-radius: 22px;
   margin-bottom: 1.2rem;
-  padding: 1.3rem 1.5rem;
+  padding: 2.2rem 1.7rem;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -165,6 +216,9 @@ button:active, .btn:active {
   position: relative;
   transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
   font-size: 1.13rem;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-x: hidden;
 }
 .list-item:hover {
   transform: translateY(-2px) scale(1.015);
@@ -236,9 +290,16 @@ h2, h3 {
   margin-bottom: 1.2rem;
   margin-top: 1.2rem;
   letter-spacing: 0.5px;
-  font-size: 2.1rem;
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: 700;
   text-align: center;
+  color: var(--accent);
+  background: rgba(45, 206, 137, 0.08);
+  border-radius: 10px;
+  padding: 0.35em 0.2em;
+  box-shadow: 0 2px 8px #00c89622;
+  font-family: 'Inter', Arial, sans-serif;
+  text-shadow: 0 1px 4px #00c89622;
 }
 .list-item > div[style*="font-size"] {
   margin-top: 0.2rem;
@@ -285,10 +346,10 @@ h2, h3 {
 
 /* Elementos clicáveis maiores para mobile e desktop */
 .btn, button, .btn-remove, .btn-remove-refeicao, .btn-remove-dieta {
-  min-height: 56px;
-  min-width: 56px;
-  font-size: 1.25rem;
-  padding: 1.2rem 2.2rem;
+  min-height: 62px;
+  min-width: 62px;
+  font-size: 1.35rem;
+  padding: 1.35rem 2.4rem;
   border-radius: 22px;
 }
 
@@ -441,4 +502,77 @@ h2, h3 {
   border-width: 0 0.22em 0.22em 0;
   transform: rotate(45deg);
   display: block;
+}
+
+/* --- Ícones verdes nas abas Refeições e Dietas --- */
+/* Círculos cinzas removidos */
+
+/* --- Botão "+" estilizado para criar refeição --- */
+.btn-add-refeicao {
+  background: linear-gradient(135deg, var(--primary) 60%, var(--accent) 100%);
+  border: none;
+  border-radius: 50%;
+  width: 2.7em;
+  height: 2.7em;
+  min-width: 2.7em;
+  min-height: 2.7em;
+  font-size: 2.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px #00c89655;
+  margin-left: 0.7em;
+  margin-right: 0.2em;
+  margin-top: -32px; /* Subiu mais 1.5cm (~24px) */
+  margin-bottom: 0;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+  padding: 0;
+  line-height: 1;
+  color: #fff !important;
+  position: relative;
+  overflow: hidden;
+  font-weight: 900;
+  text-align: center;
+}
+.btn-add-refeicao::before {
+  content: "+";
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: 900;
+  display: block;
+  position: static;
+  margin: 0 auto;
+  background: none;
+  mask: none;
+  -webkit-mask: none;
+  background-color: transparent;
+  box-shadow: none;
+  filter: none;
+}
+.btn-add-refeicao > span,
+.btn-add-refeicao > svg,
+.btn-add-refeicao > i {
+  display: none !important;
+}
+.btn-add-refeicao:hover, .btn-add-refeicao:focus {
+  background: linear-gradient(135deg, var(--accent) 60%, var(--primary) 100%);
+  box-shadow: 0 6px 24px #2dce8999;
+  transform: scale(1.08);
+}
+
+/* --- Aumentar largura dos campos alimento e qtd na criação de refeição --- */
+.criar-refeicao .input-group {
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+}
+.criar-refeicao select,
+.criar-refeicao input[type="number"],
+.criar-refeicao input[type="text"] {
+  min-width: 200px;
+  max-width: 340px;
+  flex: 1 1 0;
+  font-size: 1.28rem;
+  padding: 1.3rem 1.7rem;
+  margin-bottom: 0;
 }
